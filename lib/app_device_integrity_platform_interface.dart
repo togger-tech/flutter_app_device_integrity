@@ -24,8 +24,11 @@ abstract class AppDeviceIntegrityPlatform extends PlatformInterface {
     _instance = instance;
   }
 
-  Future<String?> getAttestationServiceSupport(
-      {required String challengeString, int? gcp}) {
+  Future<String?> getAttestationServiceSupport({
+    required String challengeString,
+    int? gcp,
+    bool classic = false,
+  }) {
     throw UnimplementedError('platformVersion() has not been implemented.');
   }
 }

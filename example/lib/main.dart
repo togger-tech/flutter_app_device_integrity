@@ -35,14 +35,14 @@ class _MyAppState extends State<MyApp> {
       if (Platform.isAndroid) {
         int gcp = 0000000000; // YOUR GCP PROJECT ID IN ANDROID
         tokenReceived = await _appAttestationPlugin
-            .getAttestationServiceSupport(challengeString: sessionId, gcp: gcp);
+            .getAttestationServiceSupport(challenge: sessionId, gcp: gcp);
         setState(() {
           _tokenExample = tokenReceived;
         });
         return;
       }
       tokenReceived = await _appAttestationPlugin.getAttestationServiceSupport(
-          challengeString: sessionId);
+          challenge: sessionId);
       setState(() {
         _tokenExample = tokenReceived;
       });

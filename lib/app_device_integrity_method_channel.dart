@@ -10,11 +10,17 @@ class MethodChannelAppDeviceIntegrity extends AppDeviceIntegrityPlatform {
   final methodChannel = const MethodChannel('app_attestation');
 
   @override
-  Future<String?> getAttestationServiceSupport(
-      {required String challengeString, int? gcp}) async {
+  Future<String?> getAttestationServiceSupport({
+    required String challengeString,
+    int? gcp,
+    bool classic = false,
+  }) async {
     final token = await methodChannel.invokeMethod<String>(
-        'getAttestationServiceSupport',
-        <String, dynamic>{'challengeString': challengeString, 'gcp': gcp});
+      classic
+          ? 'getAttestationClassicServiceSupport'
+          : 'getAttestationServiceSupport',
+      <String, dynamic>{'challengeString': challengeString, 'gcp': gcp},
+    );
     return token;
   }
 }
