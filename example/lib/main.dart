@@ -33,9 +33,9 @@ class _MyAppState extends State<MyApp> {
     try {
       String sessionId = await attestProvider.getSession();
       if (Platform.isAndroid) {
-        int gpc = 0000000000; // YOUR GCP PROJECT ID IN ANDROID
+        int gcp = 0000000000; // YOUR GCP PROJECT ID IN ANDROID
         tokenReceived = await _appAttestationPlugin
-            .getAttestationServiceSupport(challengeString: sessionId, gcp: gpc);
+            .getAttestationServiceSupport(challengeString: sessionId, gcp: gcp);
         setState(() {
           _tokenExample = tokenReceived;
         });
@@ -60,9 +60,9 @@ class _MyAppState extends State<MyApp> {
         ),
         body: Center(
           child: GestureDetector(
-            onTap: () async {
-              await Clipboard.setData(ClipboardData(text: _tokenExample));
-            },
+              onTap: () async {
+                await Clipboard.setData(ClipboardData(text: _tokenExample));
+              },
               child: Text('Running token: $_tokenExample')),
         ),
       ),

@@ -8,11 +8,25 @@ import com.google.android.play.core.integrity.IntegrityTokenRequest
 import android.content.Context
 import android.util.Base64
 
-class AppDeviceIntegrity(context: Context, cloudProjectNumber: Long) {
+// Validate nonce format
+private fun validateNonce(nonce: String): Boolean {
+    return try {
+        val decoded = Base64.decode(nonce, Base64.URL_SAFE or Base64.NO_WRAP or Base64.NO_PADDING)
+        decoded.isNotEmpty()
+    } catch (e: IllegalArgumentException) {
+        false
+    }
+}
 
-    //    var nonceBytes = ByteArray(40)
-//    var randomized = SecureRandom().nextBytes(nonceBytes)
-    var nonce = Base64.encodeToString(ByteArray(40),  Base64.URL_SAFE)
+class AppDeviceIntegrity(context: Context, cloudProjectNumber: Long, nonce: String) {
+
+    // //    var nonceBytes = ByteArray(40)
+    // //    var randomized = SecureRandom().nextBytes(nonceBytes)
+    // var nonce = Base64.encodeToString(ByteArray(40),  Base64.URL_SAFE)
+
+    init {
+        require(validateNonce(nonce)) { "Invalid nonce format. Must be Base64 URL_SAFE, NO_WRAP, NO_PADDING encoded." }
+    }
 
     // Create an instance of a manager.
     val integrityManager: IntegrityManager = IntegrityManagerFactory.create(context)
